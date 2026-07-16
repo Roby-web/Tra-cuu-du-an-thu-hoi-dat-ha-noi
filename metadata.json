@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Tra cứu dự án thu hồi đất Hà Nội",
+  "description": "Công cụ tra cứu dự án và diện tích thu hồi đất tại các xã, phường của Hà Nội",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
