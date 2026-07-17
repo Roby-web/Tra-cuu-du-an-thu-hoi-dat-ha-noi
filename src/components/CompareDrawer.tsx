@@ -206,7 +206,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                   {/* Recovered Area Row */}
                   <tr>
                     <td className="py-4 px-4 font-semibold text-gray-500 text-xs text-amber-700">
-                      DIỆN TÍCH BỊ THU HỒI
+                      DIỆN TÍCH CẦN THU HỒI
                     </td>
                     {selectedProjects.map((p, idx) => (
                       <td key={idx} className="py-4 px-4 font-mono font-extrabold text-amber-700 bg-amber-50/15 text-base">

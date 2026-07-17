@@ -239,7 +239,7 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
             <PieChart className="w-4 h-4" />
           </div>
           <h4 className="text-sm font-semibold text-gray-900">
-            Phân bổ mức độ đất bị thu hồi của dự án
+            Phân bổ mức độ đất cần thu hồi của dự án
           </h4>
         </div>
         

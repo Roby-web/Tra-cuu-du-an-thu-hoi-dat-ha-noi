@@ -37,7 +37,7 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
     },
     {
       id: "stats-recovered-area",
-      title: "Diện tích bị thu hồi",
+      title: "Diện tích cần thu hồi",
       value: `${stats.totalRecoveredArea.toLocaleString("en-US", { maximumFractionDigits: 2 })} ha`,
       subtext: `Chiếm ${percentRecovered.toFixed(1)}% tổng diện tích quy hoạch`,
       icon: <Trash2 className="w-5 h-5 text-amber-700" />,
