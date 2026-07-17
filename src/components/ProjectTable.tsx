@@ -84,11 +84,23 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
 
   // Highlight search terms helper
   const highlightText = (text: string, highlight: string) => {
-    if (!highlight || !text) return <span className="font-sans text-sm">{text}</span>;
+    const trimmed = (highlight || "").trim();
+    if (!trimmed || !text) return <span className="font-sans text-sm">{text}</span>;
     
     // Normalize to find matching indices without tone-sensitivity but display original text
-    const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const cleanHighlight = highlight.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const cleanText = text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "d");
+      
+    const cleanHighlight = trimmed
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "d");
     
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
@@ -102,13 +114,13 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
         parts.push(text.slice(lastIndex, index));
       }
       // Add highlighted text
-      const matchText = text.slice(index, index + highlight.length);
+      const matchText = text.slice(index, index + trimmed.length);
       parts.push(
         <mark key={index} className="bg-amber-100 text-amber-900 rounded px-0.5 font-sans font-medium">
           {matchText}
         </mark>
       );
-      lastIndex = index + highlight.length;
+      lastIndex = index + trimmed.length;
       index = cleanText.indexOf(cleanHighlight, lastIndex);
     }
 
@@ -150,8 +162,36 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
         </div>
       </div>
 
+      {/* Mobile Sort Control */}
+      <div className="md:hidden px-4 py-2.5 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between gap-2">
+        <span className="text-xs text-gray-500 font-semibold font-sans">Sắp xếp:</span>
+        <div className="flex gap-1.5 flex-1 max-w-[220px]">
+          <select
+            id="mobile-sort-field"
+            value={sortField}
+            onChange={(e) => {
+              handleSort(e.target.value as SortField);
+            }}
+            className="flex-1 px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs font-sans text-gray-700 outline-none focus:border-[#9f224e]"
+          >
+            <option value="dienTichTh">D.tích thu hồi</option>
+            <option value="dienTichDa">D.tích dự án</option>
+            <option value="tenDuAn">Tên dự án</option>
+            <option value="xaPhuong">Xã/phường</option>
+            <option value="tyLeTh">Tỉ lệ thu hồi</option>
+          </select>
+          <button
+            type="button"
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg text-xs font-sans text-gray-700 hover:bg-gray-50 font-medium"
+          >
+            {sortOrder === "asc" ? "Tăng ↑" : "Giảm ↓"}
+          </button>
+        </div>
+      </div>
+
       {/* Table grid container */}
-      <div className="overflow-x-auto w-full">
+      <div className="hidden md:block overflow-x-auto w-full">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-50/70 border-b border-gray-100">
@@ -308,6 +348,109 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile list view */}
+      <div className="md:hidden divide-y divide-gray-100 bg-white">
+        {paginatedProjects.length > 0 ? (
+          paginatedProjects.map((project, index) => {
+            const ratio = project.dienTichDa > 0 
+              ? (project.dienTichTh / project.dienTichDa) * 100 
+              : 100;
+            
+            const isSelectedForCompare = selectedProjectsForCompare.some(
+              (p) => p.tenDuAn === project.tenDuAn && p.xaPhuong === project.xaPhuong
+            );
+
+            let badgeColor = "bg-rose-50 text-rose-700 border-rose-100";
+            if (ratio >= 100) badgeColor = "bg-[#9f224e]/5 text-[#9f224e] border-[#9f224e]/15 font-bold";
+            else if (ratio >= 50) badgeColor = "bg-red-50 text-[#9f224e]/90 border-red-100";
+            else if (ratio >= 20) badgeColor = "bg-amber-50 text-amber-700 border-amber-100";
+
+            return (
+              <div 
+                key={`mobile-${project.tenDuAn}-${project.xaPhuong}-${index}`}
+                className="p-3.5 hover:bg-gray-50/50 transition-all flex flex-col gap-2.5"
+              >
+                {/* Header row: Checkbox and Project Title */}
+                <div className="flex items-start gap-2.5">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleCompare(project);
+                    }}
+                    className="text-gray-400 hover:text-[#9f224e] transition-colors mt-0.5 shrink-0"
+                    title={isSelectedForCompare ? "Bỏ chọn so sánh" : "Chọn so sánh"}
+                  >
+                    {isSelectedForCompare ? (
+                      <CheckSquare className="w-4 h-4 text-[#9f224e]" />
+                    ) : (
+                      <Square className="w-4 h-4 text-gray-300" />
+                    )}
+                  </button>
+                  
+                  <div className="flex-1 min-w-0">
+                    <button
+                      type="button"
+                      onClick={() => onSelectProject(project)}
+                      className="text-left font-bold text-gray-900 text-xs hover:text-[#9f224e] transition-colors leading-snug hover:underline block w-full"
+                    >
+                      {highlightText(project.tenDuAn, searchQuery)}
+                    </button>
+                    
+                    {/* Ward and classification badges */}
+                    <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[9px] text-gray-500">
+                      <span className="bg-[#9f224e]/5 text-[#9f224e] font-semibold px-1.5 py-0.5 rounded border border-[#9f224e]/10">
+                        {highlightText(project.xaPhuong, wardQuery)}
+                      </span>
+                      {project.mucDich && (
+                        <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium max-w-[120px] truncate">
+                          {project.mucDich}
+                        </span>
+                      )}
+                      {project.phanLoai && (
+                        <span className="text-gray-400 font-normal truncate max-w-[100px]">
+                          {project.phanLoai}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Details layout: Grid with areas & ratio */}
+                <div className="grid grid-cols-3 gap-1 bg-gray-50/50 p-2 rounded-xl border border-gray-100 text-center">
+                  <div className="flex flex-col justify-center">
+                    <span className="text-[9px] text-gray-500 font-semibold font-sans">D.Tích DA</span>
+                    <span className="text-[11px] font-bold text-gray-800 font-mono mt-0.5">
+                      {project.dienTichDa > 0 
+                        ? project.dienTichDa.toLocaleString("en-US", { maximumFractionDigits: 1 }) + " ha"
+                        : "—"}
+                    </span>
+                  </div>
+                  
+                  <div className="flex flex-col border-l border-gray-100 justify-center">
+                    <span className="text-[9px] text-gray-500 font-semibold font-sans">Thu Hồi</span>
+                    <span className="text-[11px] font-bold text-amber-700 font-mono mt-0.5">
+                      {project.dienTichTh.toLocaleString("en-US", { maximumFractionDigits: 1 })} ha
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col border-l border-gray-100 items-center justify-center">
+                    <span className="text-[9px] text-gray-500 font-semibold font-sans mb-0.5">Tỉ lệ</span>
+                    <span className={`inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] rounded-md border font-mono font-bold ${badgeColor}`}>
+                      {ratio.toFixed(0)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="py-12 px-4 text-center font-sans text-gray-400 italic text-xs">
+            Không tìm thấy dự án nào khớp với bộ lọc tìm kiếm hiện tại.
+          </div>
+        )}
       </div>
 
       {/* Pagination panel */}

@@ -218,7 +218,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                   {/* Ratio Row */}
                   <tr>
                     <td className="py-4 px-4 font-semibold text-gray-500 text-xs text-[#9f224e]">
-                      TỶ LỆ THU HỒI ĐẤT
+                      TỈ LỆ THU HỒI ĐẤT
                     </td>
                     {selectedProjects.map((p, idx) => {
                       const ratio = p.dienTichDa > 0 ? (p.dienTichTh / p.dienTichDa) * 100 : 100;

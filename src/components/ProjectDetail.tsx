@@ -45,7 +45,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
     }
 
     const remaining = pArea - rArea;
-    return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI MỘT PHẦN diện tích. Cụ thể, cơ quan chức năng tiến hành thu hồi ${rArea.toLocaleString("en-US")} ha trong tổng số ${pArea.toLocaleString("en-US")} ha đất quy hoạch (chiếm tỷ lệ ${ratio.toFixed(1)}%). Phần diện tích còn lại ngoài phạm vi thu hồi là ${remaining.toLocaleString("en-US")} ha (${(100 - ratio).toFixed(1)}%).`;
+    return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI MỘT PHẦN diện tích. Cụ thể, cơ quan chức năng tiến hành thu hồi ${rArea.toLocaleString("en-US")} ha trong tổng số ${pArea.toLocaleString("en-US")} ha đất quy hoạch (chiếm tỉ lệ ${ratio.toFixed(1)}%). Phần diện tích còn lại ngoài phạm vi thu hồi là ${remaining.toLocaleString("en-US")} ha (${(100 - ratio).toFixed(1)}%).`;
   };
 
   return (
@@ -65,12 +65,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             <X className="w-4 h-4" />
           </button>
           
-          <div className="flex items-center gap-2 text-red-100 text-xs font-semibold uppercase tracking-widest mb-2 font-mono">
+          <div className="flex items-center gap-2 text-red-100 text-xs font-semibold tracking-widest mb-2 font-mono">
             <Compass className="w-3.5 h-3.5 animate-spin-slow" />
             <span>Thông tin chi tiết dự án</span>
           </div>
           
-          <h3 className="text-xl font-bold tracking-tight pr-8 leading-snug">
+          <h3 className="text-xl font-bold pr-8 leading-snug">
             {project.tenDuAn}
           </h3>
         </div>
@@ -103,7 +103,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             {/* Visual Bar gauge */}
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs font-semibold text-gray-600">
-                <span>Tỷ lệ đất bị thu hồi</span>
+                <span>Tỉ lệ đất bị thu hồi</span>
                 <span className="font-mono text-[#9f224e] font-bold">{ratio.toFixed(1)}%</span>
               </div>
               <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
@@ -193,9 +193,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-xs font-semibold transition-all shadow-xs outline-none"
+            className="px-5 py-2 border border-gray-200 hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-semibold transition-all outline-none"
           >
-            Đóng thông tin
+            Đóng
           </button>
         </div>
       </div>

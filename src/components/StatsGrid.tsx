@@ -46,7 +46,7 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
     },
     {
       id: "stats-ratio",
-      title: "Tỷ lệ thu hồi trung bình mỗi dự án",
+      title: "Tỉ lệ thu hồi trung bình mỗi dự án",
       value: `${stats.avgRecoveryRatio.toFixed(1)}%`,
       subtext: "",
       icon: <Percent className="w-5 h-5 text-[#9f224e]" />,
@@ -56,29 +56,35 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-2 sm:gap-3">
       {cards.map((card) => (
         <div
           key={card.id}
           id={card.id}
-          className={`p-3.5 rounded-xl border transition-all duration-300 hover:shadow-md hover:translate-y-[-1px] ${card.bg}`}
+          className={`p-2.5 sm:p-3.5 rounded-xl border transition-all duration-300 hover:shadow-md hover:translate-y-[-1px] ${card.bg}`}
         >
           <div className="flex justify-between items-start">
             <div className="flex-1 min-w-0 mr-1">
-              <p className="text-xs font-bold text-gray-500 truncate">{card.title}</p>
-              <h3 className="text-lg font-extrabold text-gray-950 mt-0.5 font-mono tracking-tight">{card.value}</h3>
+              <p className="text-[10px] sm:text-xs font-bold text-gray-500 leading-tight break-words">
+                {card.title}
+              </p>
+              <h3 className="text-sm sm:text-lg font-extrabold text-gray-950 mt-1 font-mono tracking-tight leading-none whitespace-nowrap">
+                {card.value}
+              </h3>
               {card.subtext && (
-                <p className="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1 font-sans truncate" title={card.subtext}>
+                <p className="hidden sm:flex text-[11px] text-gray-500 mt-1.5 items-center gap-1 font-sans truncate" title={card.subtext}>
                   {card.subtext}
                 </p>
               )}
             </div>
-            <div className={`p-2 rounded-lg ${card.iconBg} shrink-0`}>
-              {card.icon}
+            <div className={`p-1.5 sm:p-2 rounded-lg ${card.iconBg} shrink-0`}>
+              <div className="w-3.5 h-3.5 sm:w-5 sm:h-5 flex items-center justify-center">
+                {React.cloneElement(card.icon as React.ReactElement, { className: "w-full h-full" })}
+              </div>
             </div>
           </div>
           {card.id === "stats-recovered-area" && (
-            <div className="w-full bg-gray-200/60 h-1 rounded-full mt-2.5 overflow-hidden">
+            <div className="hidden sm:block w-full bg-gray-200/60 h-1 rounded-full mt-2.5 overflow-hidden">
               <div 
                 className="bg-[#9f224e] h-full rounded-full transition-all duration-500" 
                 style={{ width: `${Math.min(100, percentRecovered)}%` }}
