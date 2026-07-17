@@ -22,36 +22,36 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
       title: "Tổng số dự án",
       value: stats.totalProjects.toLocaleString("en-US"),
       subtext: `${stats.fullyRecoveredCount.toLocaleString("en-US")} dự án thu hồi 100%`,
-      icon: <FileText className="w-5 h-5 text-emerald-600" />,
-      bg: "bg-emerald-50/50 border-emerald-100",
-      iconBg: "bg-emerald-100/80"
+      icon: <FileText className="w-5 h-5 text-[#9f224e]" />,
+      bg: "bg-white border-gray-150 border-l-4 border-l-[#9f224e]",
+      iconBg: "bg-red-50/70"
     },
     {
       id: "stats-project-area",
       title: "Tổng diện tích quy hoạch",
       value: `${stats.totalProjectArea.toLocaleString("en-US", { maximumFractionDigits: 2 })} ha`,
-      subtext: "Tổng diện tích đất của tất cả dự án",
-      icon: <Map className="w-5 h-5 text-blue-600" />,
-      bg: "bg-blue-50/50 border-blue-100",
-      iconBg: "bg-blue-100/80"
+      subtext: "",
+      icon: <Map className="w-5 h-5 text-gray-700" />,
+      bg: "bg-white border-gray-150 border-l-4 border-l-gray-400",
+      iconBg: "bg-gray-100/70"
     },
     {
       id: "stats-recovered-area",
       title: "Diện tích bị thu hồi",
       value: `${stats.totalRecoveredArea.toLocaleString("en-US", { maximumFractionDigits: 2 })} ha`,
       subtext: `Chiếm ${percentRecovered.toFixed(1)}% tổng diện tích quy hoạch`,
-      icon: <Trash2 className="w-5 h-5 text-amber-600" />,
-      bg: "bg-amber-50/50 border-amber-100",
-      iconBg: "bg-amber-100/80"
+      icon: <Trash2 className="w-5 h-5 text-amber-700" />,
+      bg: "bg-white border-gray-150 border-l-4 border-l-amber-500",
+      iconBg: "bg-amber-50/70"
     },
     {
       id: "stats-ratio",
-      title: "Tỷ lệ thu hồi trung bình",
+      title: "Tỷ lệ thu hồi trung bình mỗi dự án",
       value: `${stats.avgRecoveryRatio.toFixed(1)}%`,
-      subtext: "Trung bình tỉ lệ thu hồi mỗi dự án",
-      icon: <Percent className="w-5 h-5 text-indigo-600" />,
-      bg: "bg-indigo-50/50 border-indigo-100",
-      iconBg: "bg-indigo-100/80"
+      subtext: "",
+      icon: <Percent className="w-5 h-5 text-[#9f224e]" />,
+      bg: "bg-white border-gray-150 border-l-4 border-l-[#9f224e]/60",
+      iconBg: "bg-red-50/70"
     }
   ];
 
@@ -67,9 +67,11 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
             <div className="flex-1 min-w-0 mr-1">
               <p className="text-xs font-bold text-gray-500 truncate">{card.title}</p>
               <h3 className="text-lg font-extrabold text-gray-950 mt-0.5 font-mono tracking-tight">{card.value}</h3>
-              <p className="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1 font-sans truncate" title={card.subtext}>
-                {card.subtext}
-              </p>
+              {card.subtext && (
+                <p className="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1 font-sans truncate" title={card.subtext}>
+                  {card.subtext}
+                </p>
+              )}
             </div>
             <div className={`p-2 rounded-lg ${card.iconBg} shrink-0`}>
               {card.icon}
@@ -78,7 +80,7 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
           {card.id === "stats-recovered-area" && (
             <div className="w-full bg-gray-200/60 h-1 rounded-full mt-2.5 overflow-hidden">
               <div 
-                className="bg-amber-500 h-full rounded-full transition-all duration-500" 
+                className="bg-[#9f224e] h-full rounded-full transition-all duration-500" 
                 style={{ width: `${Math.min(100, percentRecovered)}%` }}
               />
             </div>

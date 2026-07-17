@@ -11,6 +11,13 @@ interface VisualsProps {
   projects: Project[];
 }
 
+const COLOR_MAP: { [key: string]: string } = {
+  "bg-emerald-500": "#9f224e",
+  "bg-indigo-500": "#c2416c",
+  "bg-amber-500": "#cca150",
+  "bg-rose-500": "#7c828c",
+};
+
 export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
   // 1. Top 8 Wards by Recovered Area
   const topWards = useMemo(() => {
@@ -136,14 +143,14 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="flex flex-col gap-6">
       {/* 1. Top Wards Column */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <div className="p-1.5 bg-emerald-50 rounded-lg text-emerald-600">
+          <div className="p-1.5 bg-red-50 rounded-lg text-[#9f224e]">
             <BarChart3 className="w-4 h-4" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+          <h4 className="text-sm font-semibold text-gray-900">
             Top xã/phường có diện tích thu hồi lớn nhất
           </h4>
         </div>
@@ -153,7 +160,7 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
             return (
               <div key={ward.name} className="group">
                 <div className="flex justify-between text-xs font-medium mb-1">
-                  <span className="text-gray-700 font-semibold group-hover:text-emerald-700 transition-colors">
+                  <span className="text-gray-700 font-semibold group-hover:text-[#9f224e] transition-colors">
                     {ward.name}
                   </span>
                   <span className="text-gray-900 font-mono">
@@ -163,14 +170,14 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
                 <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden flex">
                   {/* Recovered portion */}
                   <div
-                    className="bg-emerald-600 h-full rounded-l-full transition-all duration-500"
+                    className="bg-[#9f224e] h-full rounded-l-full transition-all duration-500"
                     style={{ width: `${ratio}%` }}
                     title={`Thu hồi: ${ward.recoveredArea.toFixed(2)} ha`}
                   />
                   {/* Remaining portion (if recovered is less than project area) */}
                   {ward.projectArea > ward.recoveredArea && (
                     <div
-                      className="bg-emerald-100 h-full rounded-r-full transition-all duration-500"
+                      className="bg-red-100/60 h-full rounded-r-full transition-all duration-500"
                       style={{ width: `${Math.max(0, ((ward.projectArea - ward.recoveredArea) / maxWardArea) * 100)}%` }}
                       title={`Diện tích còn lại: ${(ward.projectArea - ward.recoveredArea).toFixed(2)} ha`}
                     />
@@ -189,10 +196,10 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
       {/* 2. Purposes Breakdown */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <div className="p-1.5 bg-indigo-50 rounded-lg text-indigo-600">
+          <div className="p-1.5 bg-red-50 rounded-lg text-[#9f224e]">
             <Layers className="w-4 h-4" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+          <h4 className="text-sm font-semibold text-gray-900">
             Diện tích thu hồi theo mục đích sử dụng
           </h4>
         </div>
@@ -211,7 +218,7 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
                 </div>
                 <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
                   <div
-                    className="bg-indigo-600 h-full rounded-full transition-all duration-500"
+                    className="bg-[#c2416c] h-full rounded-full transition-all duration-500"
                     style={{ width: `${ratio}%` }}
                   />
                 </div>
@@ -228,33 +235,98 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
       {/* 3. Recovery Ratios Buckets */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <div className="p-1.5 bg-amber-50 rounded-lg text-amber-600">
+          <div className="p-1.5 bg-red-50 rounded-lg text-[#9f224e]">
             <PieChart className="w-4 h-4" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+          <h4 className="text-sm font-semibold text-gray-900">
             Phân bổ mức độ đất bị thu hồi của dự án
           </h4>
         </div>
-        <div className="space-y-4">
-          <div className="flex h-5 w-full rounded-lg overflow-hidden bg-gray-150">
-            {ratioBuckets.map((bucket) => (
-              <div
-                key={bucket.name}
-                className={`${bucket.color} h-full transition-all duration-500`}
-                style={{ width: `${bucket.percentage}%` }}
-                title={`${bucket.name}: ${bucket.count} dự án (${bucket.percentage.toFixed(1)}%)`}
-              />
-            ))}
+        
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-2">
+          {/* SVG Donut Chart */}
+          <div className="relative w-40 h-40 shrink-0 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+              {(() => {
+                let cumulativePercent = 0;
+                return ratioBuckets.map((bucket) => {
+                  const startPercent = cumulativePercent;
+                  cumulativePercent += bucket.percentage / 100;
+                  const endPercent = cumulativePercent;
+
+                  if (bucket.percentage <= 0) return null;
+
+                  // Handle absolute 100% case
+                  if (bucket.percentage >= 99.99) {
+                    return (
+                      <circle
+                        key={bucket.name}
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill={COLOR_MAP[bucket.color] || "#cbd5e1"}
+                      />
+                    );
+                  }
+
+                  const startAngle = (startPercent * 360) * (Math.PI / 180);
+                  const endAngle = (endPercent * 360) * (Math.PI / 180);
+
+                  const r = 45;
+                  const cx = 50;
+                  const cy = 50;
+
+                  const x1 = cx + r * Math.cos(startAngle);
+                  const y1 = cy + r * Math.sin(startAngle);
+                  const x2 = cx + r * Math.cos(endAngle);
+                  const y2 = cy + r * Math.sin(endAngle);
+
+                  const largeArcFlag = bucket.percentage > 50 ? 1 : 0;
+                  const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`;
+
+                  return (
+                    <path
+                      key={bucket.name}
+                      d={pathData}
+                      fill={COLOR_MAP[bucket.color] || "#cbd5e1"}
+                      className="transition-all duration-300 hover:opacity-90 cursor-pointer"
+                      style={{ transformOrigin: "50px 50px" }}
+                    />
+                  );
+                });
+              })()}
+              {/* Center Donut Hole cutout */}
+              <circle cx="50" cy="50" r="26" fill="white" />
+            </svg>
+            
+            {/* Middle Total Indicators */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-lg font-extrabold text-gray-900 font-mono leading-none">
+                {projects.length.toLocaleString("en-US")}
+              </span>
+              <span className="text-[10px] text-gray-400 font-semibold font-sans mt-0.5">
+                Dự án
+              </span>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+
+          {/* Donut Legend */}
+          <div className="flex-1 w-full space-y-2">
             {ratioBuckets.map((bucket) => (
-              <div key={bucket.name} className="flex items-start gap-2.5 p-2 rounded-xl bg-gray-50 border border-gray-100">
-                <div className={`w-3.5 h-3.5 rounded-md ${bucket.color} shrink-0 mt-0.5`} />
-                <div className="font-sans">
-                  <p className="text-xs font-semibold text-gray-700">{bucket.name}</p>
-                  <p className="text-xs text-gray-500 font-medium">
-                    <span className="font-mono font-bold text-gray-900">{bucket.count}</span> dự án ({bucket.percentage.toFixed(1)}%)
+              <div key={bucket.name} className="flex items-start gap-2.5 p-2 rounded-xl bg-gray-50 hover:bg-gray-100/50 border border-gray-100 transition-colors">
+                <div 
+                  className="w-3 h-3 rounded-full shrink-0 mt-0.5" 
+                  style={{ backgroundColor: COLOR_MAP[bucket.color] || "#cbd5e1" }}
+                />
+                <div className="font-sans flex-1 min-w-0">
+                  <div className="flex justify-between items-baseline gap-2">
+                    <p className="text-xs font-semibold text-gray-700 truncate">{bucket.name}</p>
+                    <span className="text-xs font-mono font-bold text-gray-900 shrink-0">
+                      {bucket.percentage.toFixed(1)}%
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-gray-500 font-medium mt-0.5">
+                    <span className="font-mono font-semibold text-gray-800">{bucket.count.toLocaleString("en-US")}</span> dự án
                   </p>
                 </div>
               </div>
@@ -266,25 +338,25 @@ export const Visuals: React.FC<VisualsProps> = ({ projects }) => {
       {/* 4. Funding Classification Breakdown */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <div className="p-1.5 bg-sky-50 rounded-lg text-sky-600">
+          <div className="p-1.5 bg-red-50 rounded-lg text-[#9f224e]">
             <Landmark className="w-4 h-4" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+          <h4 className="text-sm font-semibold text-gray-900">
             Phân bổ diện tích thu hồi theo nguồn vốn
           </h4>
         </div>
         <div className="space-y-4">
           {classificationStats.map((cls, idx) => {
-            const colors = ["bg-sky-600", "bg-purple-600", "bg-teal-600", "bg-amber-600", "bg-gray-600"];
-            const bgColors = ["bg-sky-50", "bg-purple-50", "bg-teal-50", "bg-amber-50", "bg-gray-50"];
-            const textColors = ["text-sky-700", "text-purple-700", "text-teal-700", "text-amber-700", "text-gray-700"];
+            const colors = ["bg-[#9f224e]", "bg-[#c2416c]", "bg-[#cca150]", "bg-[#7c828c]", "bg-gray-400"];
+            const bgColors = ["bg-red-50", "bg-red-50/50", "bg-amber-50", "bg-gray-100", "bg-gray-50"];
+            const textColors = ["text-[#9f224e]", "text-[#c2416c]", "text-[#cca150]", "text-[#7c828c]", "text-gray-600"];
             const colorClass = colors[idx % colors.length];
             const bgColorClass = bgColors[idx % bgColors.length];
             const textColorClass = textColors[idx % textColors.length];
 
             return (
               <div key={cls.name} className="flex items-center justify-between gap-4 p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50/50 transition-all">
-                <div className="flex items-center gap-2.5 min-w-0">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   <div className={`w-3 h-3 rounded-full ${colorClass} shrink-0`} />
                   <span className="text-xs font-bold text-gray-800 truncate" title={cls.name}>
                     {cls.name}

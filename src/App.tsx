@@ -178,21 +178,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/70 text-gray-950 font-sans flex flex-col selection:bg-emerald-100 selection:text-emerald-900 pb-12">
+    <div className="min-h-screen bg-gray-50/70 text-gray-950 font-sans flex flex-col selection:bg-red-100 selection:text-red-900 pb-12">
       {/* Top Header Block */}
-      <header className="bg-white border-b border-gray-150/80 sticky top-0 z-30 shadow-xs backdrop-blur-md bg-white/95">
+      <header className="bg-white border-b border-gray-150/80 border-t-4 border-t-[#9f224e] sticky top-0 z-30 shadow-xs backdrop-blur-md bg-white/95">
         <div className="max-w-[712px] mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-2">
           
           {/* Logo & Branding */}
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl shadow-md text-white shrink-0">
+            <div className="p-2 bg-[#9f224e] rounded-xl shadow-md text-white shrink-0">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-sm font-extrabold text-gray-950 tracking-tight leading-tight">
+              <h1 className="text-sm font-bold font-sans text-[#9f224e] tracking-tight leading-tight">
                 Danh mục các dự án thu hồi đất tại Hà Nội
               </h1>
-              <p className="text-[10px] text-gray-500 font-semibold mt-0.5">
+              <p className="text-[10px] text-gray-500 font-semibold mt-0.5 font-sans">
                 Hệ thống tra cứu, thống kê & phân loại các dự án tới 2030
               </p>
             </div>
@@ -220,39 +220,39 @@ export default function App() {
         {/* View Toggle and Controls */}
         <div className="flex items-center justify-between border-b border-gray-200 pb-3 mt-2">
           {/* Tabs Navigation */}
-          <div className="flex items-center gap-1 bg-gray-150 p-1 rounded-xl">
+          <div className="flex items-center gap-1 bg-gray-150 p-1 rounded-xl shrink-0">
             <button
               type="button"
               id="tab-list"
               onClick={() => setActiveTab("list")}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 outline-none ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 outline-none whitespace-nowrap shrink-0 ${
                 activeTab === "list"
-                  ? "bg-white text-gray-950 shadow-xs"
+                  ? "bg-white text-[#9f224e] shadow-xs"
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
-              <TableProperties className="w-4 h-4 text-emerald-600" />
-              Danh mục dự án ({filteredProjects.length.toLocaleString("en-US")})
+              <TableProperties className="w-4 h-4 text-[#9f224e] shrink-0" />
+              <span className="whitespace-nowrap">Danh mục dự án ({filteredProjects.length.toLocaleString("en-US")})</span>
             </button>
             <button
               type="button"
               id="tab-visuals"
               onClick={() => setActiveTab("visuals")}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 outline-none ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 outline-none whitespace-nowrap shrink-0 ${
                 activeTab === "visuals"
-                  ? "bg-white text-gray-950 shadow-xs"
+                  ? "bg-white text-[#9f224e] shadow-xs"
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
-              <BarChart3 className="w-4 h-4 text-indigo-600" />
-              Biểu đồ phân tích
+              <BarChart3 className="w-4 h-4 text-[#9f224e] shrink-0" />
+              <span className="whitespace-nowrap">Biểu đồ phân tích</span>
             </button>
           </div>
 
           {/* Table guide indicator */}
-          <div className="hidden sm:flex items-center gap-2 text-xs text-gray-400 font-sans">
+          <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400 font-sans shrink min-w-0">
             <Info className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-            <span>Click vào tên dự án để xem bản phân tích chi tiết quy mô thu hồi.</span>
+            <span className="truncate">Click tên dự án để xem chi tiết.</span>
           </div>
         </div>
 

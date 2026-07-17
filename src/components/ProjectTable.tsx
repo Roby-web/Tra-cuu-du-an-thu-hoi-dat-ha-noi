@@ -124,7 +124,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
       {/* Table controls */}
       <div className="px-5 py-4 border-b border-gray-100 flex flex-wrap gap-3 items-center justify-between bg-gray-50/50">
         <div className="font-sans text-xs font-semibold text-gray-500">
-          Hiển thị <span className="text-gray-900 font-bold">{Math.min(projects.length, (currentPage - 1) * pageSize + 1)}</span> - <span className="text-gray-900 font-bold">{Math.min(projects.length, currentPage * pageSize)}</span> của <span className="text-emerald-700 font-bold">{projects.length.toLocaleString("en-US")}</span> dòng lọc được
+          Hiển thị <span className="text-gray-900 font-bold">{Math.min(projects.length, (currentPage - 1) * pageSize + 1)}</span> - <span className="text-gray-900 font-bold">{Math.min(projects.length, currentPage * pageSize)}</span> của <span className="text-[#9f224e] font-bold">{projects.length.toLocaleString("en-US")}</span> kết quả
         </div>
 
         <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                 setPageSize(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs font-sans text-gray-700 outline-none focus:border-emerald-500"
+              className="px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs font-sans text-gray-700 outline-none focus:border-[#9f224e]"
             >
               {[10, 15, 25, 50, 100].map((size) => (
                 <option key={size} value={size}>
@@ -219,8 +219,8 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
 
                 // Badge color based on recovery ratio
                 let badgeColor = "bg-rose-50 text-rose-700 border-rose-100";
-                if (ratio >= 100) badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-100 font-bold";
-                else if (ratio >= 50) badgeColor = "bg-indigo-50 text-indigo-700 border-indigo-100";
+                if (ratio >= 100) badgeColor = "bg-[#9f224e]/5 text-[#9f224e] border-[#9f224e]/15 font-bold";
+                else if (ratio >= 50) badgeColor = "bg-red-50 text-[#9f224e]/90 border-red-100";
                 else if (ratio >= 20) badgeColor = "bg-amber-50 text-amber-700 border-amber-100";
 
                 return (
@@ -236,11 +236,11 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                           e.stopPropagation();
                           onToggleCompare(project);
                         }}
-                        className="text-gray-400 hover:text-emerald-600 transition-colors inline-block"
+                        className="text-gray-400 hover:text-[#9f224e] transition-colors inline-block"
                         title={isSelectedForCompare ? "Bỏ chọn so sánh" : "Chọn so sánh"}
                       >
                         {isSelectedForCompare ? (
-                          <CheckSquare className="w-4 h-4 text-emerald-600" />
+                          <CheckSquare className="w-4 h-4 text-[#9f224e]" />
                         ) : (
                           <Square className="w-4 h-4 text-gray-300 hover:text-gray-400" />
                         )}
@@ -258,7 +258,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                         <button
                           type="button"
                           onClick={() => onSelectProject(project)}
-                          className="text-left font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors text-xs hover:underline"
+                          className="text-left font-semibold text-gray-900 group-hover:text-[#9f224e] transition-colors text-xs hover:underline"
                         >
                           {highlightText(project.tenDuAn, searchQuery)}
                         </button>
@@ -349,7 +349,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                   onClick={() => setCurrentPage(page)}
                   className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all ${
                     currentPage === page
-                      ? "bg-emerald-600 text-white shadow-sm"
+                      ? "bg-[#9f224e] text-white shadow-sm"
                       : "text-gray-600 hover:bg-gray-50"
                   }`}
                 >

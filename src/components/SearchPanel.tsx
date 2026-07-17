@@ -96,7 +96,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             <input
               id="search-project-name"
               type="text"
-              className="w-full pl-9 pr-8 py-2 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 rounded-lg outline-none transition-all text-xs text-gray-900 placeholder:text-gray-400 font-sans"
+              className="w-full pl-9 pr-8 py-2 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-[#9f224e] focus:ring-2 focus:ring-red-100 rounded-lg outline-none transition-all text-xs text-gray-900 placeholder:text-gray-400 font-sans"
               placeholder="Nhập tên dự án"
               value={filters.tenDuAn}
               onChange={(e) => onFilterChange({ ...filters, tenDuAn: e.target.value })}
@@ -117,13 +117,13 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         {/* Ward/Commune search with Autocomplete */}
         <div className="sm:col-span-4 relative" ref={autocompleteRef}>
           <label className="block text-[10px] font-bold text-gray-500 mb-1">
-            Xã / phường / thị trấn
+            Xã / phường
           </label>
           <div className="relative">
             <input
               id="search-ward"
               type="text"
-              className="w-full pl-9 pr-9 py-2 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 rounded-lg outline-none transition-all text-xs text-gray-900 placeholder:text-gray-400 font-sans"
+              className="w-full pl-9 pr-9 py-2 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-[#9f224e] focus:ring-2 focus:ring-red-100 rounded-lg outline-none transition-all text-xs text-gray-900 placeholder:text-gray-400 font-sans"
               placeholder="Nhập xã/phường"
               value={wardQuery}
               onChange={(e) => {
@@ -157,9 +157,9 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                     key={ward}
                     type="button"
                     onClick={() => handleWardSelect(ward)}
-                    className="w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50/80 hover:text-emerald-700 transition-all flex items-center gap-1.5 font-sans"
+                    className="w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-[#9f224e]/5 hover:text-[#9f224e] transition-all flex items-center gap-1.5 font-sans"
                   >
-                    <MapPin className="w-3 h-3 text-emerald-500 shrink-0" />
+                    <MapPin className="w-3 h-3 text-[#9f224e] shrink-0" />
                     <span>{ward}</span>
                   </button>
                 ))
@@ -180,7 +180,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             onClick={() => setShowAdvanced(!showAdvanced)}
             className={`flex-1 py-2 px-2 border rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-all outline-none ${
               showAdvanced || filters.mucDich || filters.phanLoai
-                ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                ? "bg-red-50 border-red-200 text-[#9f224e]"
                 : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-800"
             }`}
           >
@@ -215,7 +215,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
               id="filter-purpose"
               value={filters.mucDich}
               onChange={(e) => onFilterChange({ ...filters, mucDich: e.target.value })}
-              className="w-full px-2.5 py-1.5 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-emerald-500 rounded-lg outline-none text-xs text-gray-700 transition-all font-sans"
+              className="w-full px-2.5 py-1.5 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-[#9f224e] rounded-lg outline-none text-xs text-gray-700 transition-all font-sans"
             >
               <option value="">Tất cả mục đích ({uniquePurposes.length})</option>
               {uniquePurposes.map((p) => (
@@ -235,7 +235,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
               id="filter-classification"
               value={filters.phanLoai}
               onChange={(e) => onFilterChange({ ...filters, phanLoai: e.target.value })}
-              className="w-full px-2.5 py-1.5 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-emerald-500 rounded-lg outline-none text-xs text-gray-700 transition-all font-sans"
+              className="w-full px-2.5 py-1.5 bg-gray-50/80 border border-gray-200 hover:border-gray-300 focus:bg-white focus:border-[#9f224e] rounded-lg outline-none text-xs text-gray-700 transition-all font-sans"
             >
               <option value="">Tất cả nguồn vốn</option>
               {uniqueClassifications.map((c) => (
@@ -260,7 +260,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                   className={`px-2 py-1 rounded text-[10px] font-semibold transition-all ${
                     (currentPresetIndex === idx) || 
                     (filters.minDienTichTh === preset.min && filters.maxDienTichTh === preset.max)
-                      ? "bg-emerald-600 text-white shadow-sm"
+                      ? "bg-[#9f224e] text-white shadow-sm"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -277,7 +277,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 bg-gray-50/50 px-3 py-1.5 rounded-lg border border-dashed border-gray-200 text-xs text-gray-500 animate-fade-in">
           <div className="font-sans flex items-center gap-1.5">
             <span>Tìm thấy <strong className="text-gray-900 font-bold">{totalRecords.toLocaleString("en-US")}</strong> dự án</span>
-            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded font-medium text-[9px] uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1 bg-red-50 text-[#9f224e] px-1.5 py-0.5 rounded font-medium text-[9px] uppercase tracking-wider">
               Đang lọc
             </span>
           </div>

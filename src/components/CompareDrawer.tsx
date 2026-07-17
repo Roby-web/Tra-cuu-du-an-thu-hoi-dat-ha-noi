@@ -30,13 +30,13 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-gray-900 border border-gray-800 text-white rounded-2xl shadow-2xl px-5 py-4 flex flex-col md:flex-row items-center gap-4 max-w-[95vw] md:max-w-4xl animate-fade-in"
       >
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-emerald-600 rounded-xl">
+          <div className="p-2 bg-[#9f224e] rounded-xl">
             <Scale className="w-5 h-5 text-white" />
           </div>
           <div className="font-sans text-center md:text-left">
             <p className="text-sm font-bold">So sánh quy mô thu hồi đất</p>
             <p className="text-xs text-gray-400">
-              Đã chọn <span className="text-emerald-400 font-bold">{selectedProjects.length}/3</span> dự án để đối chiếu
+              Đã chọn <span className="text-red-400 font-bold">{selectedProjects.length}/3</span> dự án để đối chiếu
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
             type="button"
             id="btn-trigger-compare"
             onClick={() => setIsOpenModal(true)}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-4 py-2 rounded-xl flex items-center gap-1 transition-all"
+            className="bg-[#9f224e] hover:bg-[#831b3f] text-white font-semibold text-xs px-4 py-2 rounded-xl flex items-center gap-1 transition-all"
           >
             <span>So sánh ngay</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -94,7 +94,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
             {/* Header */}
             <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
               <div className="flex items-center gap-2">
-                <Scale className="w-5 h-5 text-emerald-600" />
+                <Scale className="w-5 h-5 text-[#9f224e]" />
                 <h3 className="text-base font-bold text-gray-900 uppercase tracking-wider">
                   Bảng so sánh chi tiết dự án thu hồi đất
                 </h3>
@@ -142,7 +142,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                   {/* Ward Row */}
                   <tr>
                     <td className="py-3.5 px-4 font-semibold text-gray-500 text-xs">
-                      XÃ / PHƯỜNG / THỊ TRẤN
+                      XÃ / PHƯỜNG
                     </td>
                     {selectedProjects.map((p, idx) => (
                       <td key={idx} className="py-3.5 px-4 font-semibold text-gray-600 bg-gray-50/30">
@@ -217,7 +217,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
 
                   {/* Ratio Row */}
                   <tr>
-                    <td className="py-4 px-4 font-semibold text-gray-500 text-xs text-emerald-700">
+                    <td className="py-4 px-4 font-semibold text-gray-500 text-xs text-[#9f224e]">
                       TỶ LỆ THU HỒI ĐẤT
                     </td>
                     {selectedProjects.map((p, idx) => {
@@ -225,7 +225,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                       return (
                         <td key={idx} className="py-4 px-4 bg-gray-50/30">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono font-bold text-emerald-700 text-base">
+                            <span className="font-mono font-bold text-[#9f224e] text-base">
                               {ratio.toFixed(1)}%
                             </span>
                             <span className="text-xs text-gray-400">
@@ -234,7 +234,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                           </div>
                           <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden mt-1.5 max-w-[150px]">
                             <div 
-                              className="bg-emerald-600 h-full rounded-full"
+                              className="bg-[#9f224e] h-full rounded-full"
                               style={{ width: `${Math.min(100, ratio)}%` }}
                             />
                           </div>

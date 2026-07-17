@@ -56,7 +56,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
         className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-100 flex flex-col max-h-[90vh] animate-fade-in"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-750 to-teal-800 p-6 text-white relative">
+        <div className="bg-[#9f224e] p-6 text-white relative">
           <button
             type="button"
             onClick={onClose}
@@ -65,7 +65,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             <X className="w-4 h-4" />
           </button>
           
-          <div className="flex items-center gap-2 text-emerald-200 text-xs font-semibold uppercase tracking-widest mb-2 font-mono">
+          <div className="flex items-center gap-2 text-red-100 text-xs font-semibold uppercase tracking-widest mb-2 font-mono">
             <Compass className="w-3.5 h-3.5 animate-spin-slow" />
             <span>Thông tin chi tiết dự án</span>
           </div>
@@ -93,8 +93,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
                 </span>
               </div>
               <div className="font-sans border-l border-gray-200 pl-4">
-                <span className="text-[10px] text-amber-600 font-semibold block">Diện tích bị thu hồi</span>
-                <span className="text-xl font-bold text-amber-700 font-mono">
+                <span className="text-[10px] text-[#9f224e] font-semibold block">Diện tích bị thu hồi</span>
+                <span className="text-xl font-bold text-[#9f224e] font-mono">
                   {project.dienTichTh.toLocaleString("en-US")} ha
                 </span>
               </div>
@@ -104,11 +104,11 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs font-semibold text-gray-600">
                 <span>Tỷ lệ đất bị thu hồi</span>
-                <span className="font-mono text-emerald-700 font-bold">{ratio.toFixed(1)}%</span>
+                <span className="font-mono text-[#9f224e] font-bold">{ratio.toFixed(1)}%</span>
               </div>
               <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
                 <div 
-                  className="bg-emerald-600 h-full rounded-full transition-all duration-500"
+                  className="bg-[#9f224e] h-full rounded-full transition-all duration-500"
                   style={{ width: `${Math.min(100, ratio)}%` }}
                 />
               </div>
@@ -126,7 +126,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             {/* Left Col */}
             <div className="space-y-4">
               <div className="flex gap-3">
-                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl shrink-0 h-9 w-9 flex items-center justify-center">
+                <div className="p-2 bg-red-50 text-[#9f224e] rounded-xl shrink-0 h-9 w-9 flex items-center justify-center">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div className="font-sans">
@@ -175,11 +175,11 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
           </div>
 
           {/* Analytical summary card */}
-          <div className="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-4 flex gap-3">
+          <div className="bg-red-50/40 border border-[#9f224e]/10 rounded-2xl p-4 flex gap-3">
             {ratio >= 99.9 ? (
               <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             ) : (
-              <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <Info className="w-5 h-5 text-[#9f224e] shrink-0 mt-0.5" />
             )}
             <div className="font-sans text-xs text-gray-600 leading-relaxed">
               <strong className="text-gray-900 font-bold block mb-1">Đánh giá tác động thu hồi:</strong>
