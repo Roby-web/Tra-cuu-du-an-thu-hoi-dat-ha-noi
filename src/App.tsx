@@ -179,29 +179,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50/70 text-gray-950 font-sans flex flex-col selection:bg-red-100 selection:text-red-900 pb-12">
-      {/* Top Header Block */}
-      <header className="bg-white border-b border-gray-150/80 border-t-4 border-t-[#9f224e] sticky top-0 z-30 shadow-xs backdrop-blur-md bg-white/95">
-        <div className="max-w-[712px] mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-2">
-          
-          {/* Logo & Branding */}
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#9f224e] rounded-xl shadow-md text-white shrink-0">
-              <Building2 className="w-5 h-5" />
-            </div>
-            <div>
-              <h1 className="text-sm font-bold font-sans text-[#9f224e] tracking-tight leading-tight">
-                Danh mục các dự án thu hồi đất tại Hà Nội
-              </h1>
-              <p className="text-[10px] text-gray-500 font-semibold mt-0.5 font-sans">
-                Hệ thống tra cứu, thống kê & phân loại các dự án tới 2030
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Main Container */}
       <main className="max-w-[712px] mx-auto px-4 py-4 flex-1 flex flex-col gap-4 w-full">
+        
+        {/* Logo & Branding - Clean without border and background */}
+        <div className="flex items-center gap-3 px-1 py-1">
+          <div className="p-2 bg-[#9f224e] rounded-xl text-white shrink-0 shadow-xs">
+            <Building2 className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-base sm:text-lg font-bold font-sans text-[#9f224e] tracking-tight leading-tight">
+              Danh mục các dự án thu hồi đất tại Hà Nội
+            </h1>
+            <p className="text-[10px] sm:text-xs text-gray-500 font-semibold mt-0.5 font-sans">
+              Hệ thống tra cứu, thống kê & phân loại các dự án tới 2030
+            </p>
+          </div>
+        </div>
 
         {/* Dynamic Statistics Block */}
         <StatsGrid stats={stats} />
