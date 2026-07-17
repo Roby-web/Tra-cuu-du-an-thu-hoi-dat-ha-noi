@@ -124,7 +124,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
       {/* Table controls */}
       <div className="px-5 py-4 border-b border-gray-100 flex flex-wrap gap-3 items-center justify-between bg-gray-50/50">
         <div className="font-sans text-xs font-semibold text-gray-500">
-          Hiển thị <span className="text-gray-900 font-bold">{Math.min(projects.length, (currentPage - 1) * pageSize + 1)}</span> - <span className="text-gray-900 font-bold">{Math.min(projects.length, currentPage * pageSize)}</span> của <span className="text-emerald-700 font-bold">{projects.length.toLocaleString("vi-VN")}</span> dòng lọc được
+          Hiển thị <span className="text-gray-900 font-bold">{Math.min(projects.length, (currentPage - 1) * pageSize + 1)}</span> - <span className="text-gray-900 font-bold">{Math.min(projects.length, currentPage * pageSize)}</span> của <span className="text-emerald-700 font-bold">{projects.length.toLocaleString("en-US")}</span> dòng lọc được
         </div>
 
         <div className="flex items-center gap-2">
@@ -155,12 +155,12 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-50/70 border-b border-gray-100">
-              <th className="py-3 px-4 w-12 text-center text-xs font-bold text-gray-500 font-sans">
+              <th className="py-2.5 px-3 w-10 text-center text-xs font-bold text-gray-500 font-sans">
                 So sánh
               </th>
               
               <th 
-                className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors select-none"
+                className="py-2.5 px-3 text-xs font-bold text-gray-500 font-sans cursor-pointer hover:bg-gray-100 transition-colors select-none w-24 whitespace-nowrap"
                 onClick={() => handleSort("xaPhuong")}
               >
                 <div className="flex items-center gap-1">
@@ -170,51 +170,39 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
               </th>
 
               <th 
-                className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors select-none min-w-[250px]"
+                className="py-2.5 px-3 text-xs font-bold text-gray-500 font-sans cursor-pointer hover:bg-gray-100 transition-colors select-none"
                 onClick={() => handleSort("tenDuAn")}
               >
                 <div className="flex items-center gap-1">
-                  <span>Dự án / công trình</span>
+                  <span>Dự án</span>
                   <ArrowUpDown className="w-3 h-3 text-gray-400" />
                 </div>
               </th>
 
-              <th className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider hidden md:table-cell">
-                Mục đích sử dụng
-              </th>
-
               <th 
-                className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors select-none text-right w-36"
+                className="py-2.5 px-3 text-xs font-bold text-gray-500 font-sans cursor-pointer hover:bg-gray-100 transition-colors select-none text-right w-24"
                 onClick={() => handleSort("dienTichDa")}
               >
                 <div className="flex items-center justify-end gap-1">
-                  <span>DT Dự án (ha)</span>
-                  <ArrowUpDown className="w-3 h-3 text-gray-400" />
+                  <div className="flex flex-col items-end leading-tight text-right">
+                    <span>Diện tích</span>
+                    <span>dự án (ha)</span>
+                  </div>
+                  <ArrowUpDown className="w-3 h-3 text-gray-400 shrink-0" />
                 </div>
               </th>
 
               <th 
-                className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors select-none text-right w-40"
+                className="py-2.5 px-3 text-xs font-bold text-gray-500 font-sans cursor-pointer hover:bg-gray-100 transition-colors select-none text-right w-24"
                 onClick={() => handleSort("dienTichTh")}
               >
                 <div className="flex items-center justify-end gap-1">
-                  <span>DT Thu hồi (ha)</span>
-                  <ArrowUpDown className="w-3 h-3 text-gray-400" />
+                  <div className="flex flex-col items-end leading-tight text-right">
+                    <span>Diện tích</span>
+                    <span>thu hồi (ha)</span>
+                  </div>
+                  <ArrowUpDown className="w-3 h-3 text-gray-400 shrink-0" />
                 </div>
-              </th>
-
-              <th 
-                className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors select-none text-center w-32"
-                onClick={() => handleSort("tyLeTh")}
-              >
-                <div className="flex items-center justify-center gap-1">
-                  <span>Tỷ lệ thu hồi</span>
-                  <ArrowUpDown className="w-3 h-3 text-gray-400" />
-                </div>
-              </th>
-
-              <th className="py-3 px-4 text-xs font-bold text-gray-500 font-sans uppercase tracking-wider text-center w-24">
-                Chi tiết
               </th>
             </tr>
           </thead>
@@ -241,7 +229,7 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                     className="hover:bg-gray-50/70 transition-all group"
                   >
                     {/* Checkbox Compare Column */}
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-3 px-3 text-center">
                       <button
                         type="button"
                         onClick={(e) => {
@@ -252,79 +240,68 @@ export const ProjectTable: React.FC<ProjectTableProps> = ({
                         title={isSelectedForCompare ? "Bỏ chọn so sánh" : "Chọn so sánh"}
                       >
                         {isSelectedForCompare ? (
-                          <CheckSquare className="w-4.5 h-4.5 text-emerald-600" />
+                          <CheckSquare className="w-4 h-4 text-emerald-600" />
                         ) : (
-                          <Square className="w-4.5 h-4.5 text-gray-300 hover:text-gray-400" />
+                          <Square className="w-4 h-4 text-gray-300 hover:text-gray-400" />
                         )}
                       </button>
                     </td>
 
                     {/* Ward/Commune column */}
-                    <td className="py-3.5 px-4 whitespace-nowrap text-xs font-semibold text-gray-600">
+                    <td className="py-3 px-3 whitespace-nowrap text-xs font-semibold text-gray-600">
                       {highlightText(project.xaPhuong, wardQuery)}
                     </td>
 
                     {/* Project Name column */}
-                    <td className="py-3.5 px-4">
-                      <div className="flex flex-col max-w-[350px] md:max-w-[450px]">
+                    <td className="py-3 px-3">
+                      <div className="flex flex-col">
                         <button
                           type="button"
                           onClick={() => onSelectProject(project)}
-                          className="text-left font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors text-sm hover:underline line-clamp-2"
+                          className="text-left font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors text-xs hover:underline"
                         >
                           {highlightText(project.tenDuAn, searchQuery)}
                         </button>
-                        <span className="text-[10px] text-gray-400 mt-1 flex items-center gap-1.5 md:hidden">
-                          <span>{project.mucDich}</span>
-                          <span>•</span>
-                          <span>{project.phanLoai}</span>
+                        <span className="text-[10px] text-gray-400 mt-1 flex items-center gap-1.5 flex-wrap">
+                          {project.mucDich && (
+                            <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">
+                              {project.mucDich}
+                            </span>
+                          )}
+                          {project.phanLoai && (
+                            <>
+                              <span className="text-gray-300">•</span>
+                              <span>{project.phanLoai}</span>
+                            </>
+                          )}
                         </span>
                       </div>
                     </td>
 
-                    {/* Purpose column (Desktop only) */}
-                    <td className="py-3.5 px-4 text-xs text-gray-500 font-medium hidden md:table-cell">
-                      <span className="bg-gray-100 text-gray-600 px-2.5 py-1 rounded-lg">
-                        {project.mucDich || "N/A"}
-                      </span>
-                    </td>
-
                     {/* Project Area column */}
-                    <td className="py-3.5 px-4 text-right text-xs font-bold text-gray-800 font-mono">
+                    <td className="py-3 px-3 text-right text-xs font-bold text-gray-800 font-mono">
                       {project.dienTichDa > 0 
-                        ? project.dienTichDa.toLocaleString("vi-VN", { maximumFractionDigits: 2 }) 
+                        ? project.dienTichDa.toLocaleString("en-US", { maximumFractionDigits: 2 }) 
                         : "—"}
                     </td>
 
-                    {/* Recovered Area column */}
-                    <td className="py-3.5 px-4 text-right text-xs font-bold text-amber-700 font-mono bg-amber-50/20 group-hover:bg-amber-50/40 transition-all">
-                      {project.dienTichTh.toLocaleString("vi-VN", { maximumFractionDigits: 2 })}
-                    </td>
-
-                    {/* Ratio badge column */}
-                    <td className="py-3.5 px-4 text-center">
-                      <span className={`inline-flex items-center justify-center px-2 py-1 text-[11px] rounded-lg border font-mono min-w-[55px] ${badgeColor}`}>
-                        {ratio.toFixed(0)}%
-                      </span>
-                    </td>
-
-                    {/* Action trigger column */}
-                    <td className="py-3.5 px-4 text-center">
-                      <button
-                        type="button"
-                        onClick={() => onSelectProject(project)}
-                        className="p-1.5 bg-gray-50 group-hover:bg-emerald-50 text-gray-400 group-hover:text-emerald-600 rounded-lg transition-colors inline-flex items-center justify-center"
-                        title="Xem chi tiết dự án"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </button>
+                    {/* Recovered Area & Ratio Column */}
+                    <td className="py-3 px-3 text-right bg-amber-50/10 group-hover:bg-amber-50/20 transition-all">
+                      <div className="text-xs font-bold text-amber-700 font-mono">
+                        {project.dienTichTh.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+                      </div>
+                      <div className="mt-1 flex justify-end">
+                        <span className={`inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] rounded border font-mono font-semibold ${badgeColor}`}>
+                          {ratio.toFixed(0)}%
+                        </span>
+                      </div>
                     </td>
                   </tr>
                 );
               })
             ) : (
               <tr>
-                <td colSpan={8} className="py-12 px-4 text-center font-sans text-gray-400 italic">
+                <td colSpan={5} className="py-12 px-4 text-center font-sans text-gray-400 italic">
                   Không tìm thấy dự án nào khớp với bộ lọc tìm kiếm hiện tại.
                 </td>
               </tr>

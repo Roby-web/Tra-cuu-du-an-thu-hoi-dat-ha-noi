@@ -178,21 +178,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/70 text-gray-950 font-sans flex flex-col selection:bg-emerald-100 selection:text-emerald-900 pb-24">
+    <div className="min-h-screen bg-gray-50/70 text-gray-950 font-sans flex flex-col selection:bg-emerald-100 selection:text-emerald-900 pb-12">
       {/* Top Header Block */}
       <header className="bg-white border-b border-gray-150/80 sticky top-0 z-30 shadow-xs backdrop-blur-md bg-white/95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="max-w-[712px] mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-2">
           
           {/* Logo & Branding */}
-          <div className="flex items-center gap-3.5">
-            <div className="p-3 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl shadow-md text-white">
-              <Building2 className="w-6 h-6" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl shadow-md text-white shrink-0">
+              <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-gray-950 flex items-center gap-2 tracking-tight">
-                Tra cứu danh mục dự án thu hồi đất tại Hà Nội
+              <h1 className="text-sm font-extrabold text-gray-950 tracking-tight leading-tight">
+                Danh mục các dự án thu hồi đất tại Hà Nội
               </h1>
-              <p className="text-xs text-gray-500 font-medium">
+              <p className="text-[10px] text-gray-500 font-semibold mt-0.5">
                 Hệ thống tra cứu, thống kê & phân loại các dự án tới 2030
               </p>
             </div>
@@ -201,7 +201,7 @@ export default function App() {
       </header>
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col gap-6 w-full">
+      <main className="max-w-[712px] mx-auto px-4 py-4 flex-1 flex flex-col gap-4 w-full">
 
         {/* Dynamic Statistics Block */}
         <StatsGrid stats={stats} />
@@ -232,7 +232,7 @@ export default function App() {
               }`}
             >
               <TableProperties className="w-4 h-4 text-emerald-600" />
-              Bảng dữ liệu ({filteredProjects.length.toLocaleString("vi-VN")})
+              Danh mục dự án ({filteredProjects.length.toLocaleString("en-US")})
             </button>
             <button
               type="button"

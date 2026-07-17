@@ -37,15 +37,15 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
     const rArea = project.dienTichTh;
 
     if (pArea <= 0) {
-      return `Dự án "${pName}" tại địa bàn xã/phường ${ward} ghi nhận diện tích bị thu hồi là ${rArea.toLocaleString("vi-VN")} ha để phục vụ mục đích ${project.mucDich.toLowerCase()}. Dự án này chưa công bố thông tin tổng diện tích quy hoạch gốc.`;
+      return `Dự án "${pName}" tại địa bàn xã/phường ${ward} ghi nhận diện tích bị thu hồi là ${rArea.toLocaleString("en-US")} ha để phục vụ mục đích ${project.mucDich.toLowerCase()}. Dự án này chưa công bố thông tin tổng diện tích quy hoạch gốc.`;
     }
 
     if (ratio >= 99.9) {
-      return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI TOÀN BỘ (100% diện tích) với quy mô ${rArea.toLocaleString("vi-VN")} ha. Việc thu hồi toàn phần này chủ yếu phục vụ các công trình thuộc mục đích ${project.mucDich.toLowerCase()}, đòi hỏi công tác đền bù và giải phóng mặt bằng 100%.`;
+      return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI TOÀN BỘ (100% diện tích) với quy mô ${rArea.toLocaleString("en-US")} ha. Việc thu hồi toàn phần này chủ yếu phục vụ các công trình thuộc mục đích ${project.mucDich.toLowerCase()}, đòi hỏi công tác đền bù và giải phóng mặt bằng 100%.`;
     }
 
     const remaining = pArea - rArea;
-    return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI MỘT PHẦN diện tích. Cụ thể, cơ quan chức năng tiến hành thu hồi ${rArea.toLocaleString("vi-VN")} ha trong tổng số ${pArea.toLocaleString("vi-VN")} ha đất quy hoạch (chiếm tỷ lệ ${ratio.toFixed(1)}%). Phần diện tích còn lại ngoài phạm vi thu hồi là ${remaining.toLocaleString("vi-VN")} ha (${(100 - ratio).toFixed(1)}%).`;
+    return `Dự án "${pName}" tại xã/phường ${ward} bị THU HỒI MỘT PHẦN diện tích. Cụ thể, cơ quan chức năng tiến hành thu hồi ${rArea.toLocaleString("en-US")} ha trong tổng số ${pArea.toLocaleString("en-US")} ha đất quy hoạch (chiếm tỷ lệ ${ratio.toFixed(1)}%). Phần diện tích còn lại ngoài phạm vi thu hồi là ${remaining.toLocaleString("en-US")} ha (${(100 - ratio).toFixed(1)}%).`;
   };
 
   return (
@@ -79,23 +79,23 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
         <div className="p-6 overflow-y-auto space-y-6">
           {/* Quick Metrics (Visual Progress) */}
           <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+            <h4 className="text-xs font-bold text-gray-400 tracking-wider mb-3">
               Quy mô thu hồi đất
             </h4>
             
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="font-sans">
-                <span className="text-[10px] text-gray-500 font-semibold block">DIỆN TÍCH QUY HOẠCH</span>
+                <span className="text-[10px] text-gray-500 font-semibold block">Diện tích quy hoạch</span>
                 <span className="text-xl font-bold text-gray-800 font-mono">
                   {project.dienTichDa > 0 
-                    ? `${project.dienTichDa.toLocaleString("vi-VN")} ha` 
+                    ? `${project.dienTichDa.toLocaleString("en-US")} ha` 
                     : "Chưa cập nhật"}
                 </span>
               </div>
               <div className="font-sans border-l border-gray-200 pl-4">
-                <span className="text-[10px] text-amber-600 font-semibold block">DIỆN TÍCH BỊ THU HỒI</span>
+                <span className="text-[10px] text-amber-600 font-semibold block">Diện tích bị thu hồi</span>
                 <span className="text-xl font-bold text-amber-700 font-mono">
-                  {project.dienTichTh.toLocaleString("vi-VN")} ha
+                  {project.dienTichTh.toLocaleString("en-US")} ha
                 </span>
               </div>
             </div>

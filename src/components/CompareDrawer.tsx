@@ -198,7 +198,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                     </td>
                     {selectedProjects.map((p, idx) => (
                       <td key={idx} className="py-4 px-4 font-mono font-bold text-gray-800 bg-gray-50/30 text-base">
-                        {p.dienTichDa > 0 ? `${p.dienTichDa.toLocaleString("vi-VN")} ha` : "Chưa xác định"}
+                        {p.dienTichDa > 0 ? `${p.dienTichDa.toLocaleString("en-US")} ha` : "Chưa xác định"}
                       </td>
                     ))}
                   </tr>
@@ -210,7 +210,7 @@ export const CompareDrawer: React.FC<CompareDrawerProps> = ({
                     </td>
                     {selectedProjects.map((p, idx) => (
                       <td key={idx} className="py-4 px-4 font-mono font-extrabold text-amber-700 bg-amber-50/15 text-base">
-                        {p.dienTichTh.toLocaleString("vi-VN")} ha
+                        {p.dienTichTh.toLocaleString("en-US")} ha
                       </td>
                     ))}
                   </tr>
